@@ -16,6 +16,9 @@ Vue.config.productionTip = false
 // 导入样式
 import './style/common.scss'
 
+// 引入vant
+import './plugins/vant'
+
 new Vue({
   router,
   store,

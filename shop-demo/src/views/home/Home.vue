@@ -5,7 +5,7 @@
  * @Date: 2020/10/30 11:47
 -->
 <template>
-    <div></div>
+    <div>Home</div>
 </template>
 
 <script>
