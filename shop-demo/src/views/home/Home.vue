@@ -8,6 +8,7 @@
     <div id="home" ref="home">
         <!--头部组件-->
         <Header></Header>
+        <Sowing></Sowing>
     </div>
 </template>
 
@@ -16,7 +17,7 @@
     import {getHomeInfo} from './../../service/api/index'
 
     // 引入组件
-    import {Header} from './components/index'
+    import {Header, Sowing} from './components/index'
 
     export default {
         name: "Home",
@@ -24,7 +25,8 @@
             return {}
         },
         components: {
-            Header
+            Header,
+            Sowing
         },
         created() {
             this.getHomeInfo();
@@ -33,9 +35,9 @@
         },
         methods: {
             getHomeInfo() {
-                getHomeInfo().then((res)=>{
+                getHomeInfo().then((res) => {
                     console.log(res);
-                }).catch((err)=>{
+                }).catch((err) => {
                     console.log(err);
                 })
             }
