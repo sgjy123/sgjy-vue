@@ -6,3 +6,6 @@ Vue.use(Icon);
 import { Tabbar, TabbarItem } from 'vant';
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
+// loading
+import { Loading } from 'vant';
+Vue.use(Loading);

@@ -5,7 +5,7 @@
  * @Date: 2020/10/30 11:45
 -->
 <template>
-    <div>
+    <div id="dashBoard">
         <!--tabbar-->
         <van-tabbar v-model="active" active-color="#07c160" inactive-color="#999">
             <van-tabbar-item name="home"
@@ -48,5 +48,7 @@
 </script>
 
 <style lang='scss'>
-
+#dashBoard {
+    height: 100%;
+}
 </style>

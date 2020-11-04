@@ -19,6 +19,9 @@ import './style/common.scss'
 // 引入vant
 import './plugins/vant'
 
+// 引入rem.js
+import './config/rem.js'
+
 new Vue({
   router,
   store,

@@ -6,23 +6,30 @@
 -->
 <template>
     <div id="home" ref="home">
-        <!--头部组件-->
-        <Header></Header>
-        <Sowing></Sowing>
+        <div v-if="!loadingPage">
+            <!--头部组件-->
+            <Header></Header>
+            <Sowing :sowinglist="sowingList"></Sowing>
+        </div>
+        <van-loading size="24px" v-else class="loading-page">努力加载中...</van-loading>
     </div>
 </template>
 
 <script>
-    // 引入接口
-    import {getHomeInfo} from './../../service/api/index'
-
     // 引入组件
     import {Header, Sowing} from './components/index'
+    // 引入接口
+    import {getHomeInfo} from './../../service/api/index'
 
     export default {
         name: "Home",
         data() {
-            return {}
+            return {
+                // 页面loading
+                loadingPage: true,
+                // 轮播内容
+                sowingList: []
+            }
         },
         components: {
             Header,
@@ -35,8 +42,13 @@
         },
         methods: {
             getHomeInfo() {
+                let that = this;
                 getHomeInfo().then((res) => {
-                    console.log(res);
+                    // console.log(res);
+                    if (res.msg==='ok') {
+                        that.sowingList = [...res.data.list[0]['icon_list']]
+                        that.loadingPage = false
+                    }
                 }).catch((err) => {
                     console.log(err);
                 })
@@ -46,5 +58,12 @@
 </script>
 
 <style lang='scss'>
-
+    #home {
+        height: 100%;
+        background-color: #f5f5f5;
+        .loading-page {
+            text-align: center;
+            top: 50%;
+        }
+    }
 </style>
