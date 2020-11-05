@@ -94,6 +94,8 @@
             }
         }
         &_item-wrap {
+            padding-top: 1px;
+            padding-bottom: 1px;
             white-space: nowrap;
             overflow-x: auto;
             overflow-y: hidden;

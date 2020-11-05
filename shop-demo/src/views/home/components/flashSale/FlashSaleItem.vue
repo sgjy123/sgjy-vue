@@ -65,10 +65,15 @@
 <style lang='scss' scoped>
     .flashSale-item-wrap {
         display: inline-block;
-        padding: 0 0.3125rem;
-        margin: 0 0.5rem;
+        padding: 0 0.32rem;
+        margin: 0 0.25rem;
         white-space: normal;
         width: 28%;
+        border: 1px solid #ececec;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        box-shadow: 0px 0px 0px 1px #efefef;
         .imageWrapper {
             height: 0;
             padding-bottom: 100%;
@@ -120,6 +125,7 @@
 
         .priceWrapper {
             position: relative;
+            margin-bottom: 0.3rem;
         }
 
         .price {
