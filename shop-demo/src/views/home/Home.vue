@@ -13,6 +13,8 @@
             <Sowing :sowinglist="sowingList"></Sowing>
             <!--分类导航-->
             <Nav :navlist="navList"></Nav>
+            <!--限时抢购-->
+            <FlashSale :flashSaleList="flashSaleList"></FlashSale>
         </div>
         <van-loading size="24px" v-else class="loading-page">努力加载中...</van-loading>
     </div>
@@ -20,7 +22,7 @@
 
 <script>
     // 引入组件
-    import {Header, Sowing, Nav} from './components/index'
+    import {Header, Sowing, Nav, FlashSale} from './components/index'
     // 引入接口
     import {getHomeInfo} from './../../service/api/index'
 
@@ -33,13 +35,16 @@
                 // 轮播内容
                 sowingList: [],
                 // 分类导航
-                navList: []
+                navList: [],
+                // 秒杀数据
+                flashSaleList: []
             }
         },
         components: {
             Header,
             Sowing,
-            Nav
+            Nav,
+            FlashSale
         },
         created() {
             this.getHomeInfo();
@@ -59,6 +64,7 @@
                     if (res.msg==='ok') {
                         that.sowingList = [...res.data.list[0]['icon_list']]; // 获取轮播数据
                         that.navList = [...res.data.list[2]['icon_list']]; // 获取分类导航数据
+                        that.flashSaleList = [...res.data.list[3].product_list]; // 获取秒杀数据
                         that.loadingPage = false
                     }
                 }).catch((err) => {
@@ -71,8 +77,8 @@
 
 <style lang='scss'>
     #home {
-        height: 100%;
         background-color: #f5f5f5;
+        padding-bottom: 50px;
         .loading-page {
             text-align: center;
             top: 50%;
