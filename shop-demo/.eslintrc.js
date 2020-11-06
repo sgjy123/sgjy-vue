@@ -5,17 +5,24 @@ module.exports = {
   },
   'extends': [
     'plugin:vue/essential',
-    // 'eslint:recommended'
+    'eslint:recommended'
   ],
   parserOptions: {
     parser: 'babel-eslint'
   },
   rules: {
-    "generator-star-spacing": "off",
-    "no-tabs":"off",
-    "no-unused-vars":"off",
-    "no-console":"off",
-    "no-irregular-whitespace":"off",
-    "no-debugger": "off"
+    'no-console': 'off',
+    'no-debugger': 'off',
+    'quotes': [1, 'single'],
+    'semi': [1, 'never'],
+    'array-bracket-newline': [2, 'consistent'],
+    'comma-dangle': [1, 'never'],
+    'eqeqeq': [1, 'always'],
+    'no-var': 1,
+    'prefer-const': [1, {
+      'destructuring': 'any',
+      'ignoreReadBeforeAssign': false
+    }],
+    'eol-last': [1, 'always']
   }
 }

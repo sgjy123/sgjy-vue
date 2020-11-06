@@ -15,6 +15,8 @@
             <Nav :navlist="navList"></Nav>
             <!--限时抢购-->
             <FlashSale :flashSaleList="flashSaleList"></FlashSale>
+            <!--猜你喜欢-->
+            <YouLike :youLikeList="youLikeList"></YouLike>
         </div>
         <van-loading size="24px" v-else class="loading-page">努力加载中...</van-loading>
     </div>
@@ -22,7 +24,7 @@
 
 <script>
     // 引入组件
-    import {Header, Sowing, Nav, FlashSale} from './components/index'
+    import {Header, Sowing, Nav, FlashSale, YouLike} from './components/index'
     // 引入接口
     import {getHomeInfo} from './../../service/api/index'
 
@@ -37,14 +39,17 @@
                 // 分类导航
                 navList: [],
                 // 秒杀数据
-                flashSaleList: []
+                flashSaleList: [],
+                // 猜你喜欢
+                youLikeList: []
             }
         },
         components: {
             Header,
             Sowing,
             Nav,
-            FlashSale
+            FlashSale,
+            YouLike
         },
         created() {
             this.getHomeInfo();
@@ -65,6 +70,7 @@
                         that.sowingList = [...res.data.list[0]['icon_list']]; // 获取轮播数据
                         that.navList = [...res.data.list[2]['icon_list']]; // 获取分类导航数据
                         that.flashSaleList = [...res.data.list[3].product_list]; // 获取秒杀数据
+                        that.youLikeList = [...res.data.list[12].product_list]; // 获取猜你喜欢数据
                         that.loadingPage = false
                     }
                 }).catch((err) => {
