@@ -65,7 +65,7 @@
             }
         }
         .content-wrap {
-            margin-bottom: 3.5rem;
+            margin-bottom: 1rem;
         }
     }
 </style>

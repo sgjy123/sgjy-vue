@@ -17,6 +17,8 @@
             <FlashSale :flashSaleList="flashSaleList"></FlashSale>
             <!--猜你喜欢-->
             <YouLike :youLikeList="youLikeList"></YouLike>
+            <!--返回顶部-->
+            <ScrollTop :scorllTop="scorllTop"></ScrollTop>
         </div>
         <van-loading size="24px" v-else class="loading-page">努力加载中...</van-loading>
     </div>
@@ -25,6 +27,8 @@
 <script>
     // 引入组件
     import {Header, Sowing, Nav, FlashSale, YouLike} from './components/index'
+    // 引入全局组件
+    import {ScrollTop} from '@/components/index'
     // 引入接口
     import {getHomeInfo} from './../../service/api/index'
 
@@ -49,7 +53,8 @@
             Sowing,
             Nav,
             FlashSale,
-            YouLike
+            YouLike,
+            ScrollTop
         },
         created() {
             this.getHomeInfo();
@@ -76,6 +81,9 @@
                 }).catch((err) => {
                     console.log(err);
                 })
+            },
+            scorllTop() {
+               alert('11')
             }
         },
     }
