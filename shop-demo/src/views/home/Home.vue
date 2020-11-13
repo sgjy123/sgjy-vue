@@ -18,7 +18,7 @@
             <!--猜你喜欢-->
             <YouLike :youLikeList="youLikeList"></YouLike>
             <!--返回顶部-->
-            <ScrollTop :scorllTop="scorllTop"></ScrollTop>
+            <ScrollTop v-show="showBackStatus" :scorllTop="scorllToTop"></ScrollTop>
         </div>
         <van-loading size="24px" v-else class="loading-page">努力加载中...</van-loading>
     </div>
@@ -31,6 +31,9 @@
     import {ScrollTop} from '@/components/index'
     // 引入接口
     import {getHomeInfo} from './../../service/api/index'
+    // 引入处理返回顶部的函数
+    import {showBack, animate} from "@/config/global";
+
 
     export default {
         name: "Home",
@@ -45,7 +48,9 @@
                 // 秒杀数据
                 flashSaleList: [],
                 // 猜你喜欢
-                youLikeList: []
+                youLikeList: [],
+                // 是否显示返回顶部
+                showBackStatus: false
             }
         },
         components: {
@@ -76,14 +81,26 @@
                         that.navList = [...res.data.list[2]['icon_list']]; // 获取分类导航数据
                         that.flashSaleList = [...res.data.list[3].product_list]; // 获取秒杀数据
                         that.youLikeList = [...res.data.list[12].product_list]; // 获取猜你喜欢数据
-                        that.loadingPage = false
+                        that.loadingPage = false;
+                        // 开始监听滚动, 到达一定位置就显示返回顶部按钮
+                        showBack((status)=>{
+                            // console.log(status);
+                            this.showBackStatus = status;
+                        });
                     }
                 }).catch((err) => {
                     console.log(err);
                 })
             },
-            scorllTop() {
-               alert('11')
+            /**
+             * @description: 返回顶部
+             * @author: 上官靖宇
+             * @date: 2020/11/12
+             */
+            scorllToTop() {
+                // 做缓动动画返回顶部
+                let docB = document.documentElement || document.body;
+                animate(docB, {scrollTop: '0'}, 400, 'ease-out');
             }
         },
     }
