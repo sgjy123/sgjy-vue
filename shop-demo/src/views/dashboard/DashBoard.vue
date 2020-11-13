@@ -26,7 +26,10 @@
                               icon="friends">我的</van-tabbar-item>
         </van-tabbar>
         <!--路由页面-->
-        <router-view/>
+        <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"/>
+        </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive"/>
     </div>
 </template>
 

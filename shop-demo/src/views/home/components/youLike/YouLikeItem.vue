@@ -28,9 +28,9 @@
                     <div class="priceInfo">
                         <div class="pricePart">
                             <div class="price">
-                                {{product.price}}
+                                {{product.price | moneyFormat}}
                             </div>
-                            <div class="originPrice"> {{product.origin_price}}</div>
+                            <div class="originPrice"> {{product.origin_price | moneyFormat}}</div>
                         </div>
                     </div>
                     <div class="iconCartWrapper">

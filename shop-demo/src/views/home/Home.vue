@@ -72,25 +72,24 @@
              * @author: 上官靖宇
              * @date: 2020/11/05
              */
-            getHomeInfo() {
+            async getHomeInfo() {
                 let that = this;
-                getHomeInfo().then((res) => {
-                    console.log(res);
-                    if (res.msg==='ok') {
-                        that.sowingList = [...res.data.list[0]['icon_list']]; // 获取轮播数据
-                        that.navList = [...res.data.list[2]['icon_list']]; // 获取分类导航数据
-                        that.flashSaleList = [...res.data.list[3].product_list]; // 获取秒杀数据
-                        that.youLikeList = [...res.data.list[12].product_list]; // 获取猜你喜欢数据
-                        that.loadingPage = false;
-                        // 开始监听滚动, 到达一定位置就显示返回顶部按钮
-                        showBack((status)=>{
-                            // console.log(status);
-                            this.showBackStatus = status;
-                        });
-                    }
-                }).catch((err) => {
-                    console.log(err);
-                })
+                let res = await getHomeInfo();
+                // console.log(res);
+                if (res.msg==='ok') {
+                    that.sowingList = [...res.data.list[0]['icon_list']]; // 获取轮播数据
+                    that.navList = [...res.data.list[2]['icon_list']]; // 获取分类导航数据
+                    that.flashSaleList = [...res.data.list[3].product_list]; // 获取秒杀数据
+                    that.youLikeList = [...res.data.list[12].product_list]; // 获取猜你喜欢数据
+                    that.loadingPage = false;
+                    // 开始监听滚动, 到达一定位置就显示返回顶部按钮
+                    showBack((status)=>{
+                        // console.log(status);
+                        this.showBackStatus = status;
+                    });
+                } else {
+                    console.log(res.msg)
+                }
             },
             /**
              * @description: 返回顶部
