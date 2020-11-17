@@ -13,13 +13,12 @@
             <!--左侧-->
             <div class="leftWrapper">
                 <ul class="wrapper">
-                    <li
-                            class="categoryItem"
-                            v-for="(cate, index) in categoriesData"
-                            :class="{selected: currentIndex === index}"
-                            @click="clickLeftLi(index)"
-                            :key="cate.id"
-                            ref="menuList">
+                    <li class="categoryItem"
+                        v-for="(cate, index) in categoriesData"
+                        :class="{selected: currentIndex === index}"
+                        @click="clickLeftLi(index)"
+                        :key="cate.id"
+                        ref="menuList">
                         <span class="textWrapper">{{cate.name}}</span>
                     </li>
                 </ul>
@@ -33,9 +32,9 @@
 
 <script>
     // 1.导入组件
-    import {Header,ContentView} from './components/index'
+    import {Header, ContentView} from './components/index'
     // 2.导入数据请求
-    import {getCategories,getCategoriesDetail} from './../../service/api/index'
+    import {getCategories, getCategoriesDetail} from './../../service/api/index'
     // 3.导入滚动插件
     import BScroll from 'better-scroll'
 
@@ -67,18 +66,11 @@
              * @description: 初始化页面数据和相关操作
              * @author: 上官靖宇
              * @date: 2020-11-16
+             * @async: true
              */
             async initData() {
-                // 获取左侧数据
-                let leftReg = await getCategories()
-                if (leftReg.success) {
-                    this.categoriesData = leftReg.data.cate;
-                }
-                // 获取右侧数据
-                let rightRes = await getCategoriesDetail('/lk001');
-                if (rightRes.success) {
-                    this.categoriesDetailData = rightRes.data.cate;
-                }
+                await this.getLeftData()
+                await this.getRightData('1')
                 // 关闭加载中
                 this.loadingPage = false
                 // 实例化滚动插件
@@ -104,8 +96,38 @@
                 let menuLists = this.$refs.menuList;
                 let ele = menuLists[index]
                 // 3.滚动到点击的位置上
-                this.leftScroll.scrollToElement(ele, 350)
-
+                this.leftScroll.scrollToElement(ele, 350);
+                // 4.请求右侧内容
+                this.getRightData(index + 1)
+            },
+            /**
+             * @description: 获取左侧数据
+             * @author: 上官靖宇
+             * @date: 2020-11-17
+             * @async: true
+             */
+            async getLeftData() {
+                // 获取左侧数据
+                let leftReg = await getCategories()
+                if (leftReg.success) {
+                    this.categoriesData = leftReg.data.cate;
+                }
+            },
+            /**
+             * @description: 获取右侧数据
+             * @author: 上官靖宇
+             * @date: 2020-11-17
+             * @param: {
+             *     type: 分类id
+             * }
+             * @async: true
+             */
+            async getRightData(type) {
+                // 获取右侧数据
+                let rightRes = await getCategoriesDetail('/lk00' + type);
+                if (rightRes.success) {
+                    this.categoriesDetailData = rightRes.data.cate;
+                }
             }
         },
     }
