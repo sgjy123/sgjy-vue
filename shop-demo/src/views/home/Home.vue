@@ -109,9 +109,5 @@
     #home {
         background-color: #f5f5f5;
         padding-bottom: 50px;
-        .loading-page {
-            text-align: center;
-            top: 50%;
-        }
     }
 </style>

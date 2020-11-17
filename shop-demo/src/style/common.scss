@@ -1,9 +1,8 @@
 @charset "UTF-8";
-// 变量值
-@import "vriable";
-// 重置样式
-@import "reset";
-
+/* @describe: 这个文件为出口文件请勿添加太多样式
+ * @author: 上官靖宇
+ * @date: 2020/10/30
+ */
 * {
   box-sizing: border-box;
 }
@@ -11,4 +10,9 @@ html, body {
   height: 100%;
   width: 100%;
 }
+// 变量值
+@import "vriable";
+// 重置样式
+@import "reset";
+
 

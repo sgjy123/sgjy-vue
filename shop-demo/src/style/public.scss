@@ -1,0 +1,17 @@
+@charset "UTF-8";
+/* @describe: 这个文件为公用样式，可以定义公用的样式
+ * @author: 上官靖宇
+ * @date: 2020/10/30
+ */
+
+/*loading-center*/
+.loading-page {
+  text-align: center;
+  top: 50%;
+}
+/*ellipsis-溢出隐藏*/
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
