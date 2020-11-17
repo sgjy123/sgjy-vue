@@ -35,7 +35,7 @@
     // 1.导入组件
     import {Header,ContentView} from './components/index'
     // 2.导入数据请求
-    import {getCategories} from './../../service/api/index'
+    import {getCategories,getCategoriesDetail} from './../../service/api/index'
     // 3.导入滚动插件
     import BScroll from 'better-scroll'
 
@@ -69,10 +69,17 @@
              * @date: 2020-11-16
              */
             async initData() {
+                // 获取左侧数据
                 let leftReg = await getCategories()
                 if (leftReg.success) {
                     this.categoriesData = leftReg.data.cate;
                 }
+                // 获取右侧数据
+                let rightRes = await getCategoriesDetail('/lk001');
+                if (rightRes.success) {
+                    this.categoriesDetailData = rightRes.data.cate;
+                }
+                // 关闭加载中
                 this.loadingPage = false
                 // 实例化滚动插件
                 this.$nextTick(() => {

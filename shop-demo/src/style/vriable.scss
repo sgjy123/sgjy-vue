@@ -1,8 +1,14 @@
 @charset "UTF-8";
-/* @describe: 这个文件中定义一些公用的变量值
+/* @describe: 这个文件中定义一些公用的变量值及
  * @author: 上官靖宇
  * @date: 2020/10/30
  */
 $val-per-100: 100%;
+/*溢出隐藏*/
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 
