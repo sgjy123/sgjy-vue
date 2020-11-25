@@ -11,7 +11,16 @@
 }
 /*ellipsis-溢出隐藏*/
 .ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  @include ellipsis;
+}
+
+/*浮动相关*/
+.float-l {
+  float: left;
+}
+.float-r {
+  float: right;
+}
+.clear {
+  clear: both;
 }

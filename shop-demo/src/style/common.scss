@@ -10,9 +10,11 @@ html, body {
   height: 100%;
   width: 100%;
 }
-// 变量值
-@import "vriable";
 // 重置样式
 @import "reset";
+// 变量值
+@import "vriable";
+// 公用样式
+@import "public";
 
 

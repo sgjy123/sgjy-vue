@@ -5,24 +5,200 @@
  * @Date: 2020/10/30 11:48
 -->
 <template>
-    <div>Cart</div>
+    <div id="cart" class="cart">
+        <!--头部区域-->
+        <header class="titleWrapper">
+            <h4><strong>购物车</strong></h4>
+            <van-button class="clearCart" type="warning" size="small" plain hairline round>清空购物车</van-button>
+        </header>
+        <!--商品-->
+        <div class="contentWrapper">
+            <!--中间内容-->
+            <main class="contentWrapperList">
+                <section>
+
+                    <div class="shopCartListCon">
+                        <div class="left">
+                            <van-checkbox v-model="checked" checked-color="#07c160" icon-size="18px" />
+                        </div>
+                        <div class="center">
+                            <img src="./images/detail1.jpg" alt="">
+                        </div>
+                        <div class="right">
+                            <a href="#">玥明子2017春秋新款韩版加肥加大码女装胖MM胖妹妹秋装胖人显瘦毛衣外套中长款打底连衣裙女 黑色 XXXL 150-168斤左右</a>
+                            <div class="bottomContent">
+                                <p class="shopPrice">&yen;999.00</p>
+                                <div class="shopDeal">
+                                    <van-stepper input-width="40px" button-size="24px" disable-input v-model="value" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <!--底部通栏-->
+            <div class="tabBar">
+                <div class="tabBarLeft">
+                    <van-checkbox v-model="checked" checked-color="#07c160" icon-size="18px">全选</van-checkbox>
+                    <div class="selectAll">
+                        合计：<span class="totalPrice">199.00</span>
+                    </div>
+                </div>
+                <div class="tabBarRight">
+                    <van-button type="danger">去结算</van-button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
     export default {
         name: "Cart",
         data() {
-            return {}
+            return {
+                checked: true,
+                value: 0
+            }
         },
         components: {},
         created() {
         },
         mounted() {
         },
-        methods: {},
+        methods: {
+            /**
+             * @description: 清空购物车
+             * @author: 上官靖宇
+             * @date: 2020-11-23
+             */
+            clearCart() {
+
+            }
+        },
     }
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
+    .cart {
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
 
+        .titleWrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            height: 2.6rem;
+            background: #fff;
+            -webkit-background-size: 0.1rem 4.4rem;
+            background-size: 0.1rem 4.4rem;
+            .clearCart {
+                position: absolute;
+                right: 0.3rem;
+                color: red;
+            }
+        }
+        .contentWrapper {
+            padding-top: 3.5rem;
+            /*列表内容*/
+            .contentWrapperList {
+                padding-bottom: 6rem;
+                section {
+                    background-color: #fff;
+                    .shopCartListCon {
+                        display: flex;
+                        height: 6rem;
+                        border-bottom: 0.01rem solid #e0e0e0;
+                        margin-bottom: 0.7rem;
+                        padding: 0.5rem 0;
+                        .left {
+                            flex: 1;
+                            display: flex;
+                            justify-content: center;
+                        }
+                        .center {
+                            flex: 3;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                        .right {
+                            flex: 6;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            margin-left: 0.5rem;
+                            margin-right: 0.5rem;
+                            position: relative;
+                            a {
+                                height: 2.2rem;
+                                line-height: 1.2rem;
+                                overflow: hidden;
+                                margin-bottom: 0.3rem;
+                                font-size: 0.8rem;
+                                color: #000;
+                            }
+                            .shopDeal span {
+                                display: inline-block;
+                                width: 1rem;
+                                height: 1.2rem;
+                                line-height: 1.2rem;
+                                text-align: center;
+                                float: left;
+                            }
+                            .shopDeal input {
+                                float: left;
+                                width: 2rem;
+                                height: 1.2rem;
+                                text-align: center;
+                                margin: 0 0.2rem;
+                                font-size: 0.8rem;
+                            }
+                        }
+                        .bottomContent {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            align-items: center;
+                            .shopPrice {
+                                font-size: 0.8rem;
+                            }
+                        }
+                    }
+                }
+            }
+            /*底部通栏*/
+            .tabBar {
+                position: fixed;
+                left: 0;
+                bottom: 50px;
+                width: 100%;
+                background-color: #fff;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-top: 0.01rem solid #e0e0e0;
+                .tabBarLeft {
+                    display: flex;
+                    align-items: center;
+                    margin-left: 0.5rem;
+                    .selectAll {
+                        margin-left: 1rem;
+                        font-size: 1rem;
+                        .totalPrice {
+                            color: #E9232C;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 </style>

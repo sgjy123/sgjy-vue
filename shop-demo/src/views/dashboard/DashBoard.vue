@@ -38,7 +38,15 @@
         name: "DashBoard",
         data() {
             return {
-                active: 'home'
+                active: sessionStorage.getItem('tabBarIndex') || 'home'
+            }
+        },
+        watch: {
+            active(value) {
+                // 设置值
+                let tabBarIndex = value ? value : 'home';
+                // 本地存储
+                sessionStorage.setItem('tabBarIndex', tabBarIndex);
             }
         },
         components: {},
