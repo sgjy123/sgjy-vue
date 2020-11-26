@@ -16,23 +16,33 @@
             <!--中间内容-->
             <main class="contentWrapperList">
                 <section>
-
-                    <div class="shopCartListCon">
-                        <div class="left">
-                            <van-checkbox v-model="checked" checked-color="#07c160" icon-size="18px" />
-                        </div>
-                        <div class="center">
-                            <img src="./images/detail1.jpg" alt="">
-                        </div>
-                        <div class="right">
-                            <a href="#">玥明子2017春秋新款韩版加肥加大码女装胖MM胖妹妹秋装胖人显瘦毛衣外套中长款打底连衣裙女 黑色 XXXL 150-168斤左右</a>
-                            <div class="bottomContent">
-                                <p class="shopPrice">&yen;999.00</p>
-                                <div class="shopDeal">
-                                    <van-stepper input-width="40px" button-size="24px" disable-input v-model="value" />
+                    <div class="shopCartListConWrap">
+                        <van-swipe-cell>
+                            <div class="shopCartListCon">
+                                <div class="left">
+                                    <van-checkbox v-model="checked" checked-color="#07c160" icon-size="18px"/>
+                                </div>
+                                <div class="center">
+                                    <img src="./images/detail1.jpg" alt="">
+                                </div>
+                                <div class="right">
+                                    <span href="#" class="title">商品</span>
+                                    <a class="description" href="#">玥明子2017春秋新款韩版加肥加大码女装胖MM胖妹妹秋装胖人显瘦毛衣外套中长款打底连衣裙女 黑色
+                                        XXXL
+                                        150-168斤左右</a>
+                                    <div class="bottomContent">
+                                        <p class="shopPrice">&yen;999.00</p>
+                                        <div class="shopDeal">
+                                            <van-stepper input-width="40px" button-size="24px" disable-input
+                                                         v-model="value"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <template #right>
+                                <van-button square type="danger" text="删除" class="delete-button"/>
+                            </template>
+                        </van-swipe-cell>
                     </div>
                 </section>
             </main>
@@ -80,6 +90,8 @@
 </script>
 
 <style lang='scss' scoped>
+    @import "@/style/vriable.scss";
+
     .cart {
         width: 100%;
         height: 100%;
@@ -98,82 +110,110 @@
             background: #fff;
             -webkit-background-size: 0.1rem 4.4rem;
             background-size: 0.1rem 4.4rem;
+
             .clearCart {
                 position: absolute;
                 right: 0.3rem;
                 color: red;
             }
         }
+
         .contentWrapper {
             padding-top: 3.5rem;
             /*列表内容*/
             .contentWrapperList {
                 padding-bottom: 6rem;
+
                 section {
                     background-color: #fff;
-                    .shopCartListCon {
-                        display: flex;
-                        height: 6rem;
-                        border-bottom: 0.01rem solid #e0e0e0;
+
+                    .shopCartListConWrap {
+                        border-bottom: .5px solid #e0e0e0;
                         margin-bottom: 0.7rem;
-                        padding: 0.5rem 0;
-                        .left {
-                            flex: 1;
+                        .shopCartListCon {
                             display: flex;
-                            justify-content: center;
-                        }
-                        .center {
-                            flex: 3;
-                            img {
-                                width: 100%;
-                                height: 100%;
+                            height: 6rem;
+                            padding: 0.5rem 0;
+
+                            .left {
+                                flex: 1;
+                                display: flex;
+                                justify-content: center;
                             }
-                        }
-                        .right {
-                            flex: 6;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: space-between;
-                            margin-left: 0.5rem;
-                            margin-right: 0.5rem;
-                            position: relative;
-                            a {
-                                height: 2.2rem;
-                                line-height: 1.2rem;
-                                overflow: hidden;
-                                margin-bottom: 0.3rem;
-                                font-size: 0.8rem;
-                                color: #000;
+
+                            .center {
+                                flex: 3;
+
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
                             }
-                            .shopDeal span {
-                                display: inline-block;
-                                width: 1rem;
-                                height: 1.2rem;
-                                line-height: 1.2rem;
-                                text-align: center;
-                                float: left;
+
+                            .right {
+                                flex: 6;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: space-between;
+                                margin-left: 0.5rem;
+                                margin-right: 0.5rem;
+                                position: relative;
+
+                                .title {
+                                    display: inline-block;
+                                    font-size: 0.7rem;
+                                    line-height: 1.1rem;
+                                    @include ellipsis;
+                                }
+
+                                .description {
+                                    height: 2.2rem;
+                                    line-height: 1.1rem;
+                                    overflow: hidden;
+                                    margin-bottom: 0.3rem;
+                                    font-size: 0.7rem;
+                                    color: #666;
+                                }
+
+                                .shopDeal span {
+                                    display: inline-block;
+                                    width: 1rem;
+                                    height: 1.2rem;
+                                    line-height: 1.2rem;
+                                    text-align: center;
+                                    float: left;
+                                }
+
+                                .shopDeal input {
+                                    float: left;
+                                    width: 2rem;
+                                    height: 1.2rem;
+                                    text-align: center;
+                                    margin: 0 0.2rem;
+                                    font-size: 0.8rem;
+                                }
                             }
-                            .shopDeal input {
-                                float: left;
-                                width: 2rem;
-                                height: 1.2rem;
-                                text-align: center;
-                                margin: 0 0.2rem;
-                                font-size: 0.8rem;
-                            }
-                        }
-                        .bottomContent {
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: space-between;
-                            align-items: center;
-                            .shopPrice {
-                                font-size: 0.8rem;
+
+                            .bottomContent {
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                .shopPrice {
+                                    color: red;
+                                    font-size: 0.8rem;
+                                }
                             }
                         }
                     }
+
+                    .shopCartListConWrap + .shopCartListConWrap {
+                        margin-bottom: 0;
+                    }
                 }
             }
+
             /*底部通栏*/
             .tabBar {
                 position: fixed;
@@ -185,13 +225,16 @@
                 justify-content: space-between;
                 align-items: center;
                 border-top: 0.01rem solid #e0e0e0;
+
                 .tabBarLeft {
                     display: flex;
                     align-items: center;
                     margin-left: 0.5rem;
+
                     .selectAll {
                         margin-left: 1rem;
                         font-size: 1rem;
+
                         .totalPrice {
                             color: #E9232C;
                         }
@@ -200,5 +243,9 @@
             }
         }
 
+    }
+    /*删除按钮*/
+    .delete-button {
+        height: 100%;
     }
 </style>
