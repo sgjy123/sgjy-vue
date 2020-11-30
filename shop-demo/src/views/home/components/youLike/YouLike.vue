@@ -42,7 +42,7 @@
     }
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
     .youLike-wrap {
         margin-top: 0.625rem;
         .title-wrap {

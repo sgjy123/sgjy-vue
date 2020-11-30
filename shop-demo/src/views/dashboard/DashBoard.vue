@@ -11,19 +11,23 @@
             <van-tabbar-item name="home"
                              replace
                              to="/dashboard/home"
-                             icon="wap-home">首页</van-tabbar-item>
-            <van-tabbar-item  name="category"
-                              replace
-                              to="/dashboard/category"
-                              icon="shop">分类</van-tabbar-item>
-            <van-tabbar-item  name="cart"
-                              replace
-                              to="/dashboard/cart"
-                              icon="shopping-cart">购物车</van-tabbar-item>
-            <van-tabbar-item  name="mine"
-                              replace
-                              to="/dashboard/mine"
-                              icon="friends">我的</van-tabbar-item>
+                             icon="wap-home">首页
+            </van-tabbar-item>
+            <van-tabbar-item name="category"
+                             replace
+                             to="/dashboard/category"
+                             icon="shop">分类
+            </van-tabbar-item>
+            <van-tabbar-item name="cart"
+                             replace
+                             to="/dashboard/cart"
+                             icon="shopping-cart">购物车
+            </van-tabbar-item>
+            <van-tabbar-item name="mine"
+                             replace
+                             to="/dashboard/mine"
+                             icon="friends">我的
+            </van-tabbar-item>
         </van-tabbar>
         <!--路由页面-->
         <keep-alive>
@@ -59,7 +63,7 @@
 </script>
 
 <style lang='scss'>
-#dashBoard {
-    height: 100%;
-}
+    #dashBoard {
+        height: 100%;
+    }
 </style>
