@@ -11,23 +11,19 @@
             <van-tabbar-item name="home"
                              replace
                              to="/dashboard/home"
-                             icon="wap-home">首页
-            </van-tabbar-item>
+                             icon="wap-home">首页</van-tabbar-item>
             <van-tabbar-item name="category"
                              replace
                              to="/dashboard/category"
-                             icon="shop">分类
-            </van-tabbar-item>
+                             icon="shop">分类</van-tabbar-item>
             <van-tabbar-item name="cart"
                              replace
                              to="/dashboard/cart"
-                             icon="shopping-cart">购物车
-            </van-tabbar-item>
+                             icon="shopping-cart" :badge="goodsNum > 0 ? goodsNum : ''">购物车</van-tabbar-item>
             <van-tabbar-item name="mine"
                              replace
                              to="/dashboard/mine"
-                             icon="friends">我的
-            </van-tabbar-item>
+                             icon="friends">我的</van-tabbar-item>
         </van-tabbar>
         <!--路由页面-->
         <keep-alive>
@@ -38,6 +34,8 @@
 </template>
 
 <script>
+    import {mapState, mapMutations} from 'vuex'
+
     export default {
         name: "DashBoard",
         data() {
@@ -51,6 +49,21 @@
                 let tabBarIndex = value ? value : 'home';
                 // 本地存储
                 sessionStorage.setItem('tabBarIndex', tabBarIndex);
+            }
+        },
+        computed: {
+            ...mapState(['shopCart']),
+            goodsNum() {
+                if (this.shopCart) {
+                    // 1. 定义商品数量
+                    let num = 0;
+                    Object.values(this.shopCart).forEach((goods, index) => {
+                        num += goods.num;
+                    });
+                    return num
+                } else {
+                    return 0;
+                }
             }
         },
         components: {},
