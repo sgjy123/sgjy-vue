@@ -37,11 +37,11 @@
     import {getCategories, getCategoriesDetail} from './../../service/api/index'
     // 3.导入滚动插件
     import BScroll from 'better-scroll'
-    // 4.引入通信组件
-    import PubSub from 'pubsub-js';
-    // 5.引入vuex
+    // 4.导入通信组件
+    import PubSub from 'pubsub-js'
+    // 5.导入vuex
     import {mapMutations} from 'vuex'
-    // 6.引入toast轻提示
+    // // 6.引入toast轻提示
     import { toast } from'@/config/toast.js'
 
     export default {
@@ -153,7 +153,7 @@
                             smallImage: goods.small_image,
                             goodsPrice: goods.price
                         });
-                        toast('添加成功', 800); // 使用这个方法请放开引入toast方法
+                        toast('添加成功'); // 使用这个方法请放开引入toast方法
                     }
                 })
             }
