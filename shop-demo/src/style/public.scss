@@ -24,3 +24,17 @@
 .clear {
   clear: both;
 }
+/*购物车图标*/
+.cart-icon-wrap {
+  text-align: right;
+  vertical-align: center;
+  .cart-icon {
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    padding: 4px;
+    border-radius: 50%;
+    background-color: #42BE69;
+  }
+}
+

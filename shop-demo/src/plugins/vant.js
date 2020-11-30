@@ -31,3 +31,6 @@ Vue.use(Stepper);
 // SwipeCell 滑动单元格
 import { SwipeCell } from 'vant';
 Vue.use(SwipeCell);
+// Toast 轻提示
+import { Toast } from 'vant';
+Vue.use(Toast);

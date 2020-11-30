@@ -33,7 +33,12 @@
     import {getHomeInfo} from './../../service/api/index'
     // 引入处理返回顶部的函数
     import {showBack, animate} from "@/config/global";
-
+    // 引入通信插件
+    import PubSub from 'pubsub-js'
+    // 引入vuex
+    import {mapMutations} from 'vuex'
+    // 引入toast轻提示
+    // import { toast } from'@/config/toast.js'
 
     export default {
         name: "Home",
@@ -65,8 +70,11 @@
             this.getHomeInfo();
         },
         mounted() {
+            // 调用通信方法
+            this.initPubsub();
         },
         methods: {
+            ...mapMutations(['ADD_GOODS']),
             /**
              * @description: 获取首页相关数据
              * @author: 上官靖宇
@@ -100,6 +108,29 @@
                 // 做缓动动画返回顶部
                 let docB = document.documentElement || document.body;
                 animate(docB, {scrollTop: '0'}, 400, 'ease-out');
+            },
+            /**
+             * @description: 订阅消息
+             * @author: 上官靖宇
+             * @date: 2020/11/27
+             */
+            initPubsub() {
+                // 添加到购物车
+                PubSub.subscribe('homeAddToCart', (meg, goods)=>{
+                    if (meg === 'homeAddToCart') {
+                        this.ADD_GOODS({
+                            goodsId: goods.id,
+                            goodsName: goods.name,
+                            smallImage: goods.small_image,
+                            goodsPrice: goods.price
+                        });
+                        this.$toast({
+                            message: '添加成功',
+                            duration: 800
+                        })
+                        // toast('添加成功'); // 使用这个方法请放开引入toast方法
+                    }
+                })
             }
         },
     }

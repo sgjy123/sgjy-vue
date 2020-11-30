@@ -127,8 +127,6 @@ export const animate = (element, target, duration = 400, mode = 'ease-out', call
             target[attr] = parseInt(target[attr]);
         }
     });
-
-
     let flag = true; //假设所有运动到达终点
     const remberSpeed = {};//记录上一个速度值,在ease-in模式下需要用到
     element.timer = setInterval(() => {
@@ -199,3 +197,10 @@ export const animate = (element, target, duration = 400, mode = 'ease-out', call
         })
     }, 20);
 };
+
+/**
+ * @description: 本地化存储
+ * @param: {name} 键
+ * @param: {content} 值
+ */
+
