@@ -37,6 +37,12 @@
     import {getCategories, getCategoriesDetail} from './../../service/api/index'
     // 3.导入滚动插件
     import BScroll from 'better-scroll'
+    // 4.引入通信组件
+    import PubSub from 'pubsub-js';
+    // 5.引入vuex
+    import {mapMutations} from 'vuex'
+    // 6.引入toast轻提示
+    import { toast } from'@/config/toast.js'
 
     export default {
         name: "Category",
@@ -60,8 +66,11 @@
             this.initData()
         },
         mounted() {
+            // 调用通信方法
+            this.initPubsub();
         },
         methods: {
+            ...mapMutations(['ADD_GOODS']),
             /**
              * @description: 初始化页面数据和相关操作
              * @author: 上官靖宇
@@ -128,6 +137,25 @@
                 if (rightRes.success) {
                     this.categoriesDetailData = rightRes.data.cate;
                 }
+            },
+            /**
+             * @description: 订阅消息
+             * @author: 上官靖宇
+             * @date: 2020/11/27
+             */
+            initPubsub() {
+                // 添加到购物车
+                PubSub.subscribe('cateAddToCart', (meg, goods)=>{
+                    if (meg === 'cateAddToCart') {
+                        this.ADD_GOODS({
+                            goodsId: goods.id,
+                            goodsName: goods.name,
+                            smallImage: goods.small_image,
+                            goodsPrice: goods.price
+                        });
+                        toast('添加成功', 800); // 使用这个方法请放开引入toast方法
+                    }
+                })
             }
         },
     }

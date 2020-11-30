@@ -58,9 +58,10 @@
 </template>
 
 <script>
+    import PubSub from 'pubsub-js';
     export default {
         name: "ProductItem",
-        props:{
+        props: {
             products: Array
         },
         data() {
@@ -72,8 +73,16 @@
         mounted() {
         },
         methods: {
-            addToCart(){
-
+            /**
+             * @description: 添加商品到购物车
+             * @author: 上官靖宇
+             * @date: 2020/11/05
+             * @param: {
+             *   product: 商品
+             * }
+             */
+            addToCart(product) {
+                PubSub.publish('cateAddToCart', product);
             }
         }
     }
@@ -81,14 +90,17 @@
 
 <style lang='scss' scoped>
     @import "@/style/vriable.scss";
+
     .productWrapper {
         position: relative;
         padding: 0.8125rem 0;
         background: #FFF;
+
         .infoWrapper {
             position: relative;
             padding: 0.2rem 0.625rem 0.4rem 4.6625rem;
             border-bottom: 1px solid #e0e0e0;
+
             .imageWrapper {
                 position: absolute;
                 left: 0;
@@ -97,28 +109,34 @@
                 height: 4.0625rem;
                 overflow: hidden;
                 border-radius: 4px;
+
                 .image {
                     width: 100%;
                     height: 100%;
                     display: block;
                 }
             }
+
             .nameWrapper {
                 min-height: 2.1875rem;
+
                 .name {
                     line-height: 1.25rem;
                     word-break: break-all;
                     font-size: 0.9375rem;
                     color: #333333;
                     @include ellipsis;
+
                     .nameTag {
                         margin-right: 0.125rem;
                         vertical-align: middle;
                     }
+
                     .nameText {
                         vertical-align: middle;
                     }
                 }
+
                 .spec {
                     min-height: 1.25rem;
                     line-height: 1.25rem;
@@ -128,18 +146,22 @@
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
+
                 .tagsWrapper {
                     margin-top: 0.1875rem;
                     max-height: 1.0625rem;
                     line-height: 0.8125rem;
                     overflow: hidden;
+
                     .H1B9Rvu {
                         height: 1rem;
                     }
                 }
             }
+
             .priceWrapper {
                 position: relative;
+
                 .price {
                     display: inline-block;
                     height: 1.875rem;
@@ -165,9 +187,11 @@
                         height: 1.875rem;
                     }
                 }
+
             }
         }
     }
+
     .productWrapper + .productWrapper {
         border-top: solid 1px #EEEEEE;
     }

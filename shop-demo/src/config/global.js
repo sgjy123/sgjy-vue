@@ -203,4 +203,31 @@ export const animate = (element, target, duration = 400, mode = 'ease-out', call
  * @param: {name} 键
  * @param: {content} 值
  */
+export const setStore = (name, content) => {
+    // 判断是否存在name
+    if (!name) return;
+    if (typeof content !== 'string') {
+        content = JSON.stringify(content)
+    }
+    window.localStorage.setItem(name, content);
+}
 
+/**
+ * @description: 本地化数据获取
+ * @param: {name} 键
+ */
+export const getStore = (name) => {
+    // 判断是否存在name
+    if (!name) return;
+    return window.localStorage.getItem(name);
+}
+
+/**
+ * @description: 本地化数据删除
+ * @param: {name} 键
+ */
+export const removeStore = (name) => {
+    // 判断是否存在name
+    if (!name) return;
+    return window.localStorage.removeItem(name);
+}

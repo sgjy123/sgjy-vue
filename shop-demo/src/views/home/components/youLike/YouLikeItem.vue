@@ -47,7 +47,7 @@
 
 <script>
     // 引入通信组件
-    import Pubsub from 'pubsub-js'
+    import PubSub from 'pubsub-js'
 
     export default {
         name: "YouLikeItem",
@@ -72,7 +72,7 @@
              * }
              */
             addToCart(product) {
-                Pubsub.publish('homeAddToCart', product);
+                PubSub.publish('homeAddToCart', product);
             }
         },
     }
