@@ -16,31 +16,28 @@
             <!--中间内容-->
             <main class="contentWrapperList">
                 <section>
-                    <div class="shopCartListConWrap">
+                    <div class="shopCartListConWrap" v-for="(goods, index) in shopCart" :key="goods.id">
                         <van-swipe-cell>
                             <div class="shopCartListCon">
                                 <div class="left">
-                                    <van-checkbox v-model="checked" checked-color="#07c160" icon-size="18px"/>
+                                    <van-checkbox v-model="goods.checked" checked-color="#07c160" icon-size="18px"/>
                                 </div>
                                 <div class="center">
-                                    <img src="./images/detail1.jpg" alt="">
+                                    <img :src="goods.small_image">
                                 </div>
                                 <div class="right">
-                                    <span href="#" class="title">商品</span>
-                                    <a class="description" href="#">玥明子2017春秋新款韩版加肥加大码女装胖MM胖妹妹秋装胖人显瘦毛衣外套中长款打底连衣裙女 黑色
-                                        XXXL
-                                        150-168斤左右</a>
+                                    <span href="#" class="title">{{goods.name}}</span>
                                     <div class="bottomContent">
-                                        <p class="shopPrice">&yen;999.00</p>
+                                        <p class="shopPrice">{{goods.price | moneyFormat}}</p>
                                         <div class="shopDeal">
                                             <van-stepper input-width="40px" button-size="24px" disable-input
-                                                         v-model="value"/>
+                                                         v-model="goods.num"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <template #right>
-                                <van-button square type="danger" text="删除" class="delete-button"/>
+                                <van-button square type="danger" text="删除" class="delete-button" @click="delectGood(goods.id)"/>
                             </template>
                         </van-swipe-cell>
                     </div>
@@ -49,7 +46,7 @@
             <!--底部通栏-->
             <div class="tabBar">
                 <div class="tabBarLeft">
-                    <van-checkbox v-model="checked" checked-color="#07c160" icon-size="18px">全选</van-checkbox>
+                    <van-checkbox checked-color="#07c160" icon-size="18px">全选</van-checkbox>
                     <div class="selectAll">
                         合计：<span class="totalPrice">199.00</span>
                     </div>
@@ -63,20 +60,24 @@
 </template>
 
 <script>
+    // 导入vuex
+    import {mapState, mapMutations} from 'vuex'
     export default {
         name: "Cart",
         data() {
-            return {
-                checked: true,
-                value: 0
-            }
+            return {}
         },
-        components: {},
+        computed: {
+            ...mapState(['shopCart'])
+        },
+        watch: {
+        },
         created() {
         },
         mounted() {
         },
         methods: {
+            ...mapMutations(['DELECT_SHOP_GOOD']),
             /**
              * @description: 清空购物车
              * @author: 上官靖宇
@@ -84,6 +85,24 @@
              */
             clearCart() {
 
+            },
+            /**
+             * @description: 删除单个商品
+             * @author: 上官靖宇
+             * @date: 2020-12-01
+             * @param: {
+             *     goodId: 商品id
+             * }
+             */
+            delectGood(goodId) {
+                if (goodId) {
+                    this.$dialog.confirm({
+                        title: '温馨提示',
+                        message: '您确定要删除该商品吗？',
+                    }).then(() => {
+                        this.DELECT_SHOP_GOOD(mapState, {goodId});
+                    });
+                }
             }
         },
     }

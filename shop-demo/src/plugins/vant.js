@@ -25,6 +25,10 @@ Vue.use(Form);
 import { Checkbox, CheckboxGroup } from 'vant';
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
+// Radio 单选框
+import { RadioGroup, Radio } from 'vant';
+Vue.use(Radio);
+Vue.use(RadioGroup);
 // Stepper 步进器
 import { Stepper } from 'vant';
 Vue.use(Stepper);
@@ -34,3 +38,6 @@ Vue.use(SwipeCell);
 // Toast 轻提示
 import { Toast } from 'vant';
 Vue.use(Toast);
+// Dialog 弹出框
+import { Dialog } from 'vant';
+Vue.use(Dialog);
