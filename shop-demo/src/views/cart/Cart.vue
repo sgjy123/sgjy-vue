@@ -12,7 +12,7 @@
             <van-button class="clearCart" type="warning" size="small" plain hairline round>清空购物车</van-button>
         </header>
         <!--商品-->
-        <div class="contentWrapper">
+        <div class="contentWrapper" v-if="shopCart.length > 0">
             <!--中间内容-->
             <main class="contentWrapperList">
                 <section>
@@ -56,16 +56,24 @@
                 </div>
             </div>
         </div>
+        <VanEmpty v-else :imageUrl="imageUrl" :description="description" class="contentWrapper"></VanEmpty>
     </div>
 </template>
 
 <script>
     // 导入vuex
     import {mapState, mapMutations} from 'vuex'
+    import {VanEmpty} from '@/components/index'
     export default {
         name: "Cart",
+        components: {
+            VanEmpty
+        },
         data() {
-            return {}
+            return {
+                imageUrl: 'https://img.yzcdn.cn/vant/custom-empty-image.png',
+                description: '购物车什么也没有'
+            }
         },
         computed: {
             ...mapState(['shopCart'])

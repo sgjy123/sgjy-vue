@@ -41,3 +41,6 @@ Vue.use(Toast);
 // Dialog 弹出框
 import { Dialog } from 'vant';
 Vue.use(Dialog);
+// Empty 空状态
+import { Empty } from 'vant';
+Vue.use(Empty);
