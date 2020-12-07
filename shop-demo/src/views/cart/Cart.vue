@@ -9,10 +9,14 @@
         <!--头部区域-->
         <header class="titleWrapper">
             <h4><strong>购物车</strong></h4>
-            <van-button class="clearCart" type="warning" size="small" plain hairline round>清空购物车</van-button>
+            <van-button @click="clearCart"
+                        class="clearCart"
+                        type="warning"
+                        size="small"
+                        plain hairline round>清空购物车</van-button>
         </header>
         <!--商品-->
-        <div class="contentWrapper" v-if="shopCart.length > 0">
+        <div class="contentWrapper" v-if="showCart">
             <!--中间内容-->
             <main class="contentWrapperList">
                 <section>
@@ -20,7 +24,10 @@
                         <van-swipe-cell>
                             <div class="shopCartListCon">
                                 <div class="left">
-                                    <van-checkbox v-model="goods.checked" checked-color="#07c160" icon-size="18px"/>
+                                    <van-checkbox v-model="goods.checked"
+                                                  @click="checkSingleGood(goods.id)"
+                                                  checked-color="#07c160"
+                                                  icon-size="18px"/>
                                 </div>
                                 <div class="center">
                                     <img :src="goods.small_image">
@@ -30,7 +37,11 @@
                                     <div class="bottomContent">
                                         <p class="shopPrice">{{goods.price | moneyFormat}}</p>
                                         <div class="shopDeal">
-                                            <van-stepper input-width="40px" button-size="24px" disable-input
+                                            <van-stepper input-width="40px"
+                                                         button-size="24px"
+                                                         disable-input
+                                                         @minus="reduceGoodsNum(goods.id, goods.num)"
+                                                         @plus="addGoodsNum(goods.id, goods.name, goods.small_image, goods.price)"
                                                          v-model="goods.num"/>
                                         </div>
                                     </div>
@@ -46,13 +57,16 @@
             <!--底部通栏-->
             <div class="tabBar">
                 <div class="tabBarLeft">
-                    <van-checkbox checked-color="#07c160" icon-size="18px">全选</van-checkbox>
+                    <van-checkbox v-model="tagAll"
+                                  @click="checkAllGood(tagAll)"
+                                  checked-color="#07c160"
+                                  icon-size="18px">全选</van-checkbox>
                     <div class="selectAll">
-                        合计：<span class="totalPrice">199.00</span>
+                        合计：<span class="totalPrice">{{totalPrice | moneyFormat}}</span>
                     </div>
                 </div>
                 <div class="tabBarRight">
-                    <van-button type="danger">去结算</van-button>
+                    <van-button type="danger">去结算({{goodsCount}})</van-button>
                 </div>
             </div>
         </div>
@@ -71,28 +85,78 @@
         },
         data() {
             return {
+                // 空图片地址
                 imageUrl: 'https://img.yzcdn.cn/vant/custom-empty-image.png',
-                description: '购物车什么也没有'
+                // 空内容的显示文字
+                description: '购物车什么也没有',
+                tagAll: true
             }
         },
         computed: {
-            ...mapState(['shopCart'])
+            ...mapState(['shopCart']),
+            // 是否显示购物车内容
+            showCart() {
+                if (Object.values(this.shopCart).length > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            // 选中多少件商品
+            goodsCount() {
+                // 1. 定义变量选中的个数
+                let selecetdGoodsCount = 0;
+                Object.values(this.shopCart).forEach((goods, index)=>{
+                    if(goods.checked){
+                        selecetdGoodsCount += 1;
+                    }
+                });
+                return selecetdGoodsCount;
+            },
+            // 选中的商品总价
+            totalPrice() {
+                // 定义变量初始化总价
+                let totalPrice = 0;
+                Object.values(this.shopCart).forEach((goods, index)=>{
+                    if (goods.checked) {
+                        totalPrice += goods.price * goods.num;
+                    }
+                })
+                return totalPrice;
+            },
+            // 商品全选
+            isSelectAll() {
+                let shopCount = Object.values(this.shopCart);
+                this.tagAll = shopCount.length > 0;
+                shopCount.forEach((goods, index)=>{
+                    if(!goods.checked){
+                        this.tagAll = false;
+                    }
+                });
+                return this.tagAll;
+            }
         },
-        watch: {
-        },
+        watch: {},
         created() {
         },
         mounted() {
         },
         methods: {
-            ...mapMutations(['DELECT_SHOP_GOOD']),
+            ...mapMutations(['DELECT_SHOP_GOOD','SELECT_SINGLE_GOOD','ADD_GOODS','REDUCE_GOODS','CLEAR_CART','SELECT_ALL_GOODS']),
             /**
              * @description: 清空购物车
              * @author: 上官靖宇
              * @date: 2020-11-23
              */
             clearCart() {
-
+                if (Object.values(this.shopCart).length > 0) {
+                    this.$dialog.confirm({
+                        title: '温馨提示',
+                        message: '您确定要清空购物车吗？',
+                    }).then(() => {
+                        this.CLEAR_CART();
+                    }).catch(()=>{});
+                }
             },
             /**
              * @description: 删除单个商品
@@ -108,9 +172,92 @@
                         title: '温馨提示',
                         message: '您确定要删除该商品吗？',
                     }).then(() => {
-                        this.DELECT_SHOP_GOOD(mapState, {goodId});
-                    });
+                        this.DELECT_SHOP_GOOD({goodId});
+                    }).catch(()=>{});
                 }
+            },
+            /**
+             * @description: 单个商品点击复选框
+             * @author: 上官靖宇
+             * @date: 2020-12-04
+             * @param: {
+             *     goodId: 商品id
+             * }
+             */
+            checkSingleGood(goodId) {
+                // 1. 判断是否存在商品
+                if (goodId) {
+                    this.SELECT_SINGLE_GOOD({goodId});
+                    this.checkTagAll();
+                }
+            },
+            /**
+             * @description: 添加商品数量
+             * @author: 上官靖宇
+             * @date: 2020-12-04
+             * @param: {
+             *     goodsId: 商品id,
+             *     goodsName: 商品id,
+             *     smallImage: 商品id,
+             *     goodsPrice: 商品id
+             * }
+             */
+            addGoodsNum(goodsId, goodsName, smallImage, goodsPrice) {
+                this.ADD_GOODS({
+                    goodsId,
+                    goodsName,
+                    smallImage,
+                    goodsPrice
+                });
+            },
+            /**
+             * @description: 减少商品数量
+             * @author: 上官靖宇
+             * @date: 2020-12-04
+             * @param: {
+             *     goodId: 商品id,
+             *     num: 商品数量
+             * }
+             */
+            reduceGoodsNum(goodId, num) {
+                if (num > 0) {
+                    this.REDUCE_GOODS({
+                        goodId
+                    })
+                } else if (num === 0) {
+                    this.$dialog.confirm({
+                        title: '温馨提示',
+                        message: '您确定要删除该商品吗？',
+                    }).then(() => {
+                        this.DELECT_SHOP_GOOD({goodId});
+                    }).catch(()=>{});
+                }
+            },
+            /**
+             * @description: 全选操作
+             * @author: 上官靖宇
+             * @date: 2020-12-04
+             * @param: {
+             *     isSelectAll: 全选状态
+             * }
+             */
+            checkAllGood(isSelectAll) {
+                this.SELECT_ALL_GOODS({isSelectAll})
+            },
+            /**
+             * @description: 检查全选状态
+             * @author: 上官靖宇
+             * @date: 2020-12-04
+             */
+            checkTagAll() {
+                let shopCount = Object.values(this.shopCart);
+                this.tagAll = shopCount.length > 0;
+                shopCount.forEach((goods, index)=>{
+                    if(!goods.checked){
+                        this.tagAll = false;
+                    }
+                });
+                return this.tagAll;
             }
         },
     }
