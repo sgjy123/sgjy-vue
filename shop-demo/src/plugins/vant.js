@@ -44,3 +44,17 @@ Vue.use(Dialog);
 // Empty 空状态
 import { Empty } from 'vant';
 Vue.use(Empty);
+// NavBar 导航栏
+import { NavBar } from 'vant';
+Vue.use(NavBar);
+// ContactCard 联系人卡片
+import { ContactCard } from 'vant';
+Vue.use(ContactCard);
+// Cell 单元格
+import { Cell, CellGroup } from 'vant';
+Vue.use(Cell);
+Vue.use(CellGroup);
+// Field 输入框
+import { Field } from 'vant';
+Vue.use(Field);
+

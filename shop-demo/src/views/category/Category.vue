@@ -41,7 +41,7 @@
     import PubSub from 'pubsub-js'
     // 5.导入vuex
     import {mapMutations} from 'vuex'
-    // // 6.引入toast轻提示
+    // 6.引入toast轻提示
     import { toast } from'@/config/toast.js'
 
     export default {

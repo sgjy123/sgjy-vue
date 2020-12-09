@@ -1,8 +1,8 @@
 <!--
- * @Descripttion: 吃什么
+ * @Descripttion:
  * @version: v1.0.0
  * @Author: sgjy
- * @Date: 2020/10/30 11:49
+ * @Date: 2020/12/9 13:57
 -->
 <template>
     <div></div>
@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        name: "Eat",
+        name: "EditAddress",
         data() {
             return {}
         },

@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="tabBarRight">
-                    <van-button type="danger">去结算({{goodsCount}})</van-button>
+                    <van-button type="danger" @click="toPay">去结算({{goodsCount}})</van-button>
                 </div>
             </div>
         </div>
@@ -78,6 +78,8 @@
     // 导入vuex
     import {mapState, mapMutations} from 'vuex'
     import {VanEmpty} from '@/components/index'
+    // 6.引入toast轻提示
+    import { toast } from'@/config/toast.js'
     export default {
         name: "Cart",
         components: {
@@ -258,6 +260,18 @@
                     }
                 });
                 return this.tagAll;
+            },
+            /**
+             * @description: 去支付跳转页面
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            toPay() {
+                if (this.totalPrice > 0) {
+                    this.$router.push('/order')
+                } else {
+                    toast('请先选择商品后再结算~');
+                }
             }
         },
     }

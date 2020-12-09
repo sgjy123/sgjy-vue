@@ -138,7 +138,6 @@ export default {
      * @param: {state} 存储信息
      */
     [SELECT_ALL_GOODS](state, {isSelectAll}) {
-        debugger
         // 1. 存放变量
         let shopCart = state.shopCart; // 商品
         // 2. 循环商品中
