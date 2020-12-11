@@ -49,4 +49,13 @@
         background-color: #f5f5f5;
         z-index: 200;
     }
+    /*转场动画*/
+    .router-slider-enter-active, .router-slider-leave-active {
+        transition: all .3s;
+    }
+
+    .router-slider-enter, .router-slider-leave-active {
+        transform: translate3d(2rem, 0, 0);
+        opacity: 0;
+    }
 </style>

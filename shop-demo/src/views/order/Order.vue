@@ -13,8 +13,8 @@
                      :border="true"
                      :placeholder="true"
                      @click-left="goBackPage"/>
-        <!--联系人-->
-        <van-contact-card type="add" @click="onAdd"/>
+        <!--联系人和地址-->
+        <van-contact-card type="add" @click="addAddress"/>
         <!--商品小计-->
         <van-cell-group style="margin-top: 0.6rem">
             <van-cell title="送达时间" value="内容" is-link/>
@@ -70,8 +70,13 @@
             goBackPage() {
                 this.$router.back();
             },
-            onAdd() {
-
+            /**
+             * @description: 添加跳转地址
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            addAddress() {
+                this.$router.push('/order/myAddress');
             }
         }
     }

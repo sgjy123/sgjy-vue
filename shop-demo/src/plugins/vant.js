@@ -66,4 +66,10 @@ Vue.use(Card);
 // AddressList 地址列表
 import { AddressList } from 'vant';
 Vue.use(AddressList);
-
+// AddressEdit 地址编辑
+import { AddressEdit } from 'vant';
+Vue.use(AddressEdit);
+// Grid 宫格
+import { Grid, GridItem } from 'vant';
+Vue.use(Grid);
+Vue.use(GridItem);
