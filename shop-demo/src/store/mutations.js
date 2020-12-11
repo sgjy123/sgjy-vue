@@ -6,7 +6,10 @@ import {
     SELECT_SINGLE_GOOD,
     REDUCE_GOODS,
     CLEAR_CART,
-    SELECT_ALL_GOODS
+    SELECT_ALL_GOODS,
+    SAVE_USER_INFO,
+    GET_USER_INFO,
+    CLEAR_USER_INFO
 } from './mutations-type'
 
 // 引入本地存储
@@ -82,7 +85,7 @@ export default {
      * @param: {state} 存储信息
      * @param: {goodId} 商品ID
      */
-    [SELECT_SINGLE_GOOD](state, {goodId}){
+    [SELECT_SINGLE_GOOD](state, {goodId}) {
         // 1. 存放变量
         let shopCart = state.shopCart; // 商品
         let good = shopCart[goodId]; // 单个商品
@@ -99,7 +102,7 @@ export default {
      * @param: {state} 存储信息
      * @param: {goodId} 商品ID
      */
-    [REDUCE_GOODS](state, {goodId}){
+    [REDUCE_GOODS](state, {goodId}) {
         // 1. 存放变量
         let shopCart = state.shopCart; // 商品
         let good = shopCart[goodId]; // 单个商品
@@ -141,8 +144,8 @@ export default {
         // 1. 存放变量
         let shopCart = state.shopCart; // 商品
         // 2. 循环商品中
-        Object.values(shopCart).forEach((goods, index)=>{
-            if(goods.checked){ // 存在该属性
+        Object.values(shopCart).forEach((goods, index) => {
+            if (goods.checked) { // 存在该属性
                 goods.checked = isSelectAll;
             } else {
                 Vue.set(goods, 'checked', isSelectAll);
@@ -152,5 +155,37 @@ export default {
         state.shopCart = {...shopCart};
         // 4. 存放本地
         setStore('shopCart', state.shopCart);
-    }
+    },
+    /**
+     * @description: 保存用户信息
+     * @param: {state} 存储信息
+     */
+    [SAVE_USER_INFO](state, {userInfo}) {
+        // 1. vuex存用户信息
+        state.userInfo = userInfo;
+        // 2. 本地存用户信息
+        setStore('userInfo', state.userInfo);
+    },
+    /**
+     * @description: 获取用户信息
+     * @param: {state} 存储信息
+     */
+    [GET_USER_INFO](state) {
+        // 1. 获取本地用户信息
+        let userInfo = getStore('userInfo');
+        // 2. 判断是否存在
+        if (userInfo) {
+            state.userInfo = JSON.parse(userInfo);
+        }
+    },
+    /**
+     * @description: 清空本地用户信息
+     * @param: {state} 存储信息
+     */
+    [GET_USER_INFO](state) {
+        // 1. 清空vuex
+        state.userInfo = {};
+        // 2. 移除本地
+        removeStore('userInfo');
+    },
 }

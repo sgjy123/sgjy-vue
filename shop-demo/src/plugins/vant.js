@@ -73,3 +73,7 @@ Vue.use(AddressEdit);
 import { Grid, GridItem } from 'vant';
 Vue.use(Grid);
 Vue.use(GridItem);
+// Tab 标签页
+import { Tab, Tabs } from 'vant';
+Vue.use(Tab);
+Vue.use(Tabs);

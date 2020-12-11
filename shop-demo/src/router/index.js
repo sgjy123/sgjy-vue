@@ -15,6 +15,9 @@ const MyAddress = ()=> import('./../views/order/children/MyAddress.vue'); // 我
 const AddAddress = ()=> import('./../views/order/children/children/AddAddress.vue'); // 添加地址
 const EditAddress = ()=> import('./../views/order/children/children/EditAddress.vue'); // 编辑地址
 
+// 登陆相关
+const Login = () => import('./../views/login/Login.vue'); // 订单页面
+
 export default new Router({
     routes: [
         {path: '/', redirect: '/dashboard'},
@@ -58,6 +61,11 @@ export default new Router({
                     component: OrderDetail
                 }
             ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
         }
     ]
 })

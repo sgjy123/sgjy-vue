@@ -9,7 +9,7 @@
   text-align: center;
   top: 50%;
 }
-/*ellipsis-溢出隐藏*/
+/*溢出隐藏*/
 .ellipsis {
   @include ellipsis;
 }
@@ -24,6 +24,7 @@
 .clear {
   clear: both;
 }
+
 /*购物车图标*/
 .cart-icon-wrap {
   text-align: right;
@@ -38,3 +39,41 @@
   }
 }
 
+/*边距*/
+/*内边距*/
+/*5px*/
+.sg-pt-5 {padding-top: $val-5;}
+.sg-pr-5 {padding-right: $val-5;}
+.sg-pb-5 {padding-bottom: $val-5;}
+.sg-pl-5 {padding-left: $val-5;}
+/*10px*/
+.sg-pt-10 {padding-top: $val-10;}
+.sg-pr-10 {padding-right: $val-10;}
+.sg-pb-10 {padding-bottom: $val-10;}
+.sg-pl-10 {padding-left: $val-10;}
+/*15px*/
+.sg-pt-15 {padding-top: $val-15;}
+.sg-pr-15 {padding-right: $val-15;}
+.sg-pb-15 {padding-bottom: $val-15;}
+.sg-pl-15 {padding-left: $val-15;}
+/*外边距*/
+/*5px*/
+.sg-mt-5 {margin-top: $val-5;}
+.sg-mr-5 {margin-right: $val-5;}
+.sg-mb-5 {margin-bottom: $val-5;}
+.sg-ml-5 {margin-left: $val-5;}
+/*10mx*/
+.sg-mt-10 {margin-top: $val-10;}
+.sg-mr-10 {margin-right: $val-10;}
+.sg-mb-10 {margin-bottom: $val-10;}
+.sg-ml-10 {margin-left: $val-10;}
+/*15mx*/
+.sg-mt-15 {margin-top: $val-15;}
+.sg-mr-15 {margin-right: $val-15;}
+.sg-mb-15 {margin-bottom: $val-15;}
+.sg-ml-15 {margin-left: $val-15;}
+
+/*文字内容对齐*/
+.sg-align-left {text-align: left;}
+.sg-align-center {text-align: center;}
+.sg-align-right {text-align: right;}

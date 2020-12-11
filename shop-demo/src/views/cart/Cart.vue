@@ -5,7 +5,7 @@
  * @Date: 2020/10/30 11:48
 -->
 <template>
-    <div id="cart" class="cart">
+    <div id="cart" class="cart" v-if="userInfo.token">
         <!--头部区域-->
         <header class="titleWrapper">
             <h4><strong>购物车</strong></h4>
@@ -72,18 +72,22 @@
         </div>
         <VanEmpty v-else :imageUrl="imageUrl" :description="description" class="contentWrapper"></VanEmpty>
     </div>
+    <ChangeLogin v-else/>
 </template>
 
 <script>
     // 导入vuex
     import {mapState, mapMutations} from 'vuex'
     import {VanEmpty} from '@/components/index'
-    // 6.引入toast轻提示
-    import { toast } from'@/config/toast.js'
+    // 引入toast轻提示
+    import { toast } from '@/config/toast.js'
+    // 引入选择登陆
+    import ChangeLogin from './../login/ChangeLogin'
     export default {
         name: "Cart",
         components: {
-            VanEmpty
+            VanEmpty,
+            ChangeLogin
         },
         data() {
             return {
@@ -95,7 +99,7 @@
             }
         },
         computed: {
-            ...mapState(['shopCart']),
+            ...mapState(['shopCart','userInfo']),
             // 是否显示购物车内容
             showCart() {
                 if (Object.values(this.shopCart).length > 0) {

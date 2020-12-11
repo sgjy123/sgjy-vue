@@ -4,6 +4,10 @@
  * @date: 2020/10/30
  */
 $val-per-100: 100%;
+$val-5: 5px;
+$val-10: 10px;
+$val-15: 15px;
+
 /*溢出隐藏*/
 @mixin ellipsis {
   overflow: hidden;
