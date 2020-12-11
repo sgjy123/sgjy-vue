@@ -57,4 +57,13 @@ Vue.use(CellGroup);
 // Field 输入框
 import { Field } from 'vant';
 Vue.use(Field);
+// SubmitBar 提交订单栏
+import { SubmitBar } from 'vant';
+Vue.use(SubmitBar);
+// Card 卡片
+import { Card } from 'vant';
+Vue.use(Card);
+// AddressList 地址列表
+import { AddressList } from 'vant';
+Vue.use(AddressList);
 

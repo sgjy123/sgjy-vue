@@ -36,24 +36,24 @@ export default new Router({
             component: Order,
             children: [
                 {
-                    path: '/myAddress',
+                    path: 'myAddress',
                     name: 'myAddress',
                     component: MyAddress,
                     children: [
                         {
-                            path: '/addAddress',
+                            path: 'addAddress',
                             name: 'addAddress',
                             component: AddAddress
                         },
                         {
-                            path: '/editAddress',
+                            path: 'editAddress',
                             name: 'editAddress',
                             component: EditAddress
                         }
                     ]
                 },
                 {
-                    path: '/orderDetail',
+                    path: 'orderDetail',
                     name: 'orderDetail',
                     component: OrderDetail
                 }
