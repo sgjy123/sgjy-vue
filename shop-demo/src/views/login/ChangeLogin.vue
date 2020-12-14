@@ -9,7 +9,7 @@
         <img src="./../../images/lk_logo_sm.png" alt="小撩买菜" class="logo">
         <h4 class="sg-mb-10">选择登录方式</h4>
         <div class="login-type">
-            <van-button type="primary" block round to="/login">手机登录</van-button>
+            <van-button type="primary" color="#75a342" block round to="/login">手机登录</van-button>
             <!--<van-button type="primary" block round to="/login">手机登录</van-button>-->
         </div>
     </div>

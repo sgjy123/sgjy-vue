@@ -35,8 +35,10 @@
                                    placeholder="用户名">
                         </van-field>
                         <van-field v-model="user_pass"
-                                   clearable
-                                   placeholder="密码">
+                                   :type="showUserPasswordParm['type']"
+                                   :right-icon="showUserPasswordParm['icon']"
+                                   @click-right-icon="showUserPassword"
+                                   placeholder="密码" clearable>
                         </van-field>
                         <van-field v-model="user_code"
                                    clearable
@@ -75,7 +77,13 @@
                 // 密码
                 user_pass: '',
                 // 用户验证码
-                user_code: ''
+                user_code: '',
+                // 切换密码框时的参数
+                showUserPasswordParm: {
+                    value: '0', // 0：关闭; 1: 张开
+                    icon: 'closed-eye',
+                    type: 'password'
+                }
             }
         },
         components: {},
@@ -83,7 +91,25 @@
         },
         mounted() {
         },
-        methods: {}
+        methods: {
+            /**
+             * @description: 显示密码
+             * @author: 上官靖宇
+             * @date: 2020-12-14
+             */
+            showUserPassword() {
+                // 1. 判断当前眼睛是关闭还是睁开
+                if (this.showUserPasswordParm['value'] === '0') { // 关闭
+                    this.showUserPasswordParm['icon'] = 'closed-eye';
+                    this.showUserPasswordParm['type'] = 'password';
+                    this.showUserPasswordParm['value'] = '1';
+                } else if (this.showUserPasswordParm['value'] === '1') { // 睁开
+                    this.showUserPasswordParm['icon'] = 'eye-o';
+                    this.showUserPasswordParm['type'] = 'text';
+                    this.showUserPasswordParm['value'] = '0';
+                }
+            }
+        }
     }
 </script>
 
