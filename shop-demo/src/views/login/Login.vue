@@ -20,7 +20,7 @@
                                    style="margin-top: 2.5rem;"
                                    placeholder="手机号">
                             <template #button>
-                                <van-button size="small" color="#75a342">发送验证码</van-button>
+                                <van-button size="small" color="#75a342" @click="sendCode">{{codeTime}}</van-button>
                             </template>
                         </van-field>
                         <van-field v-model="code"
@@ -52,9 +52,9 @@
                 <!--提交按钮-->
                 <div class="sg-mt-15">
                     <div class="sg-mb-10">
-                        <van-button round color="#75a342" block>登录</van-button>
+                        <van-button round color="#75a342" block @click="login">登录</van-button>
                     </div>
-                    <van-button round color="#75a342" block plain>返回</van-button>
+                    <van-button round color="#75a342" block plain @click="goBackPage">返回</van-button>
                 </div>
             </div>
         </div>
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+    import {getPhoneCode, phoneLogin} from './../../service/api/index';
+    import {mapActions} from 'vuex';
     export default {
         name: "Login",
         data() {
@@ -72,6 +74,8 @@
                 phone: '',
                 // 验证码
                 code: '',
+                // 倒计时
+                codeTime: '发送验证码',
                 // 用户名
                 user_name: '',
                 // 密码
@@ -92,6 +96,7 @@
         mounted() {
         },
         methods: {
+            ...mapActions(['syncUserInfo']),
             /**
              * @description: 显示密码
              * @author: 上官靖宇
@@ -108,7 +113,146 @@
                     this.showUserPasswordParm['type'] = 'text';
                     this.showUserPasswordParm['value'] = '0';
                 }
-            }
+            },
+            /**
+             * @description: 返回订单页
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            goBackPage() {
+                this.$router.back();
+            },
+            /**
+             * @description: 发送验证码
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            async sendCode(){
+                // 1. 验证数据
+                if (this.checkSendCode()) {
+                    // 2. 倒计时
+                    this.countDown();
+                    // 3. 请求接口
+                    let res = await getPhoneCode(this.phone);
+                    console.log(res);
+                    // 4. 处理接口
+                    if (res.success_code === 200) {
+                        this.code = res.code
+                    }
+                }
+            },
+            /**
+             * @description: 发送验证码倒计时
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            countDown() {
+                this.codeTime = 60
+                let phoneTime = setInterval(()=>{
+                    this.codeTime--;
+                    if (this.codeTime === 0) {
+                        clearInterval(phoneTime);
+                        this.codeTime = '发送验证码';
+                    }
+                },1000);
+            },
+            /**
+             * @description: 发送验证码验证
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             * @return: {
+             *     true: 验证通过，
+             *     false：验证失败，有错误
+             * }
+             */
+            checkSendCode() {
+                if (this.phone.trim() === '') {
+                    this.$toast('请输入手机号')
+                    return false;
+                } else {
+                    let phoneReg = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
+                    if (!phoneReg.test(this.phone)) {
+                        this.$toast('请输入正确的手机号')
+                        return false;
+                    }
+                }
+                return true;
+            },
+            /**
+             * @description: 登录
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            login() {
+                // 验证当前登录方式
+                if (this.activeLogin === 'phone') { // 手机号
+                    this.loginPhone();
+                } else if (this.activeLogin === 'password') { // 密码
+                    this.loginPassword()
+                }
+            },
+            /**
+             * @description: 手机号-登录
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            async loginPhone() {
+                if (this.checkLoginPhone()) {
+                    let parms = {
+                        phone: this.phone,
+                        code: this.code
+                    }
+                    let res = await phoneLogin(parms);
+                    if (res.success_code === 200) {
+                        this.$toast('登录成功');
+                        this.syncUserInfo(res.data);
+                        this.$router.back();
+                    } else {
+                        this.$toast(res.message);
+                    }
+
+                }
+            },
+            /**
+             * @description: 手机号码登录验证
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             * @return: {
+             *     true: 验证通过，
+             *     false：验证失败，有错误
+             * }
+             */
+            checkLoginPhone() {
+                if (this.phone.trim() === '') {
+                    this.$toast('请输入手机号')
+                    return false;
+                } else {
+                    let phoneReg = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
+                    if (!phoneReg.test(this.phone)) {
+                        this.$toast('请输入正确的手机号')
+                        return false;
+                    }
+                }
+                if (this.code.trim() === '') {
+                    this.$toast('请输入验证码')
+                    return false;
+                } else {
+                    let phoneReg = /^\d{6}$/gi
+                    if (!phoneReg.test(this.code)) {
+                        this.$toast('请输入正确的验证码')
+                        return false;
+                    }
+                }
+                return true;
+            },
+            /**
+             * @description: 密码-登录
+             * @author: 上官靖宇
+             * @date: 2020-12-09
+             */
+            loginPassword() {
+
+            },
         }
     }
 </script>
