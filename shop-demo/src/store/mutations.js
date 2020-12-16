@@ -161,7 +161,6 @@ export default {
      * @param: {state} 存储信息
      */
     [SAVE_USER_INFO](state, {userInfo}) {
-        debugger
         // 1. vuex存用户信息
         state.userInfo = userInfo;
         // 2. 本地存用户信息

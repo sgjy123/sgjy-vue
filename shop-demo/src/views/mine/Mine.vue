@@ -5,18 +5,19 @@
  * @Date: 2020/10/30 11:49
 -->
 <template>
-    <div id="mine" class="mine">
+    <div id="mine" class="mine" v-if="userInfo.token">
         <!--个人信息-->
         <van-cell-group>
-            <van-cell is-link
+            <van-cell @click="$router.push('/dashboard/mine/userCenter')"
+                      is-link
                       class="person-cell"
                       :center="true">
                 <template #title>
                     <div class="person-msg">
-                        <img class="person-msg-img" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="个人中心">
+                        <img class="person-msg-img" :src="userInfo.icon_url" :alt="userInfo.real_name">
                         <div class="person-msg-info">
-                            <div class="name">名字</div>
-                            <div class="phone">手机号</div>
+                            <div class="name">{{userInfo.real_name}}</div>
+                            <div class="phone">手机号: {{userInfo.phone}}</div>
                         </div>
                     </div>
                 </template>
@@ -51,9 +52,12 @@
             <router-view></router-view>
         </transition>
     </div>
+    <ChangeLogin v-else/>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+    import ChangeLogin from './../login/ChangeLogin'
     export default {
         name: "Mine",
         data() {
@@ -67,7 +71,12 @@
                 ]
             }
         },
-        components: {},
+        components: {
+            ChangeLogin
+        },
+        computed: {
+            ...mapState(['userInfo'])
+        },
         created() {
         },
         mounted() {

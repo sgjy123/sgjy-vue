@@ -9,3 +9,4 @@ export const getCategoriesDetail = (preParams) => ajax(BASE_URL + '/api/homeApi/
 // 登录相关
 export const getPhoneCode = (phone)=> ajax(BASE_URL + '/api/send_code', {phone}); // 获取验证码
 export const phoneLogin = (prams)=> ajax(BASE_URL + '/api/login_code', prams, 'POST'); // 手机号登录
+export const pwdLogin = (prams)=> ajax(BASE_URL + '/api/login_pwd', prams, 'POST'); // 手机号登录
