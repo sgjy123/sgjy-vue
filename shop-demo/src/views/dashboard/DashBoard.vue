@@ -34,7 +34,7 @@
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex'
+    import {mapState, mapMutations, mapActions} from 'vuex'
 
     export default {
         name: "DashBoard",
@@ -70,8 +70,13 @@
         created() {
         },
         mounted() {
+            // 自动登录
+            this.reqUserInfo();
+
         },
-        methods: {},
+        methods: {
+            ...mapActions(['reqUserInfo'])
+        },
     }
 </script>
 

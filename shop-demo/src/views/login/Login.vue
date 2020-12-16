@@ -8,7 +8,7 @@
     <div id="login" class="login">
         <!--容器-->
         <div class="login-wrap">
-            <div class="sg-mb-10 sg-align-center">
+            <div class="sg-mb-10 sg-mt-10 sg-align-center">
                 <img src="./../../images/lk_logo_sm.png" alt="小撩买菜" class="logo">
             </div>
             <div class="content-wrap">

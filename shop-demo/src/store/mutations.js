@@ -132,7 +132,7 @@ export default {
         // 1. 清空缓存
         state.shopCart = null;
         // 2. 拷贝对象
-        state.shopCart = {...shopCart};
+        state.shopCart = {...state.shopCart};
         // 3. 存放本地
         setStore('shopCart', state.shopCart);
     },
@@ -182,7 +182,7 @@ export default {
      * @description: 清空本地用户信息
      * @param: {state} 存储信息
      */
-    [GET_USER_INFO](state) {
+    [CLEAR_USER_INFO](state) {
         // 1. 清空vuex
         state.userInfo = {};
         // 2. 移除本地
