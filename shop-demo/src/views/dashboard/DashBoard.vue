@@ -34,7 +34,9 @@
 </template>
 
 <script>
-    import {mapState, mapMutations, mapActions} from 'vuex'
+    import {mapState, mapMutations, mapActions} from 'vuex';
+    import {getGoodsCart} from './../../service/api/index';
+    import {setStore} from "./../../config/global";
 
     export default {
         name: "DashBoard",
@@ -75,7 +77,39 @@
 
         },
         methods: {
-            ...mapActions(['reqUserInfo'])
+            ...mapActions(['reqUserInfo']),
+            ...mapMutations(['INIT_SHOP_CART']),
+            /**
+             * @description: 初始化购物车
+             * @author: 上官靖宇
+             * @date: 2020-12-16
+             */
+            async initShopCart() {
+                // 判断当前是否存在登录人
+                if (this.userInfo.token) {
+                    let res = await getGoodsCart(this.userInfo.token);
+                    // 返回
+                    if(res.success_code === 200){
+                        // 存放数据
+                        let cartArr = res.data, shopCart = {};
+                        // 设置内容
+                        cartArr.forEach((value)=>{
+                            shopCart[value.goods_id] = {
+                                "num": value.num,
+                                "id": value.goods_id,
+                                "name": value.goods_name,
+                                "small_image": value.small_image,
+                                "price": value.goods_price,
+                                "checked": value.checked
+                            }
+                        });
+                        setStore('shopCart', shopCart);
+                        this.INIT_SHOP_CART();
+                    } else {
+                        this.$toast('购物车信息获取失败')
+                    }
+                }
+            }
         },
     }
 </script>
