@@ -41,8 +41,8 @@
 </template>
 
 <script>
-    // 引入通信组件
-    import PubSub from 'pubsub-js'
+    import {mapState, mapMutations} from 'vuex'
+    import {addGoodsToCart} from './../../../../service/api/index'
     export default {
         name: "ProductItem",
         props:{
@@ -51,12 +51,13 @@
         data() {
             return {}
         },
-        components: {},
-        created() {
+        computed: {
+            ...mapState(['userInfo'])
         },
         mounted() {
         },
         methods: {
+            ...mapMutations(['ADD_GOODS']),
             /**
              * @description: 添加商品到购物车
              * @author: 上官靖宇
@@ -65,8 +66,38 @@
              *   product: 商品
              * }
              */
-            addToCart(product) {
-                PubSub.publish('cateAddToCart', product);
+            async addToCart(product) {
+                if (this.userInfo.token) {
+                    let prams = {
+                        user_id: this.userInfo.token,
+                        goods_id: product.id,
+                        goods_name: product.name,
+                        goods_price: product.price,
+                        small_image: product.small_image
+                    }
+                    // 调取接口
+                    let res = await addGoodsToCart(prams);
+                    if (res.success_code === 200) {
+                        this.ADD_GOODS({
+                            goodsId: product.id,
+                            goodsName: product.name,
+                            smallImage: product.small_image,
+                            goodsPrice: product.price
+                        });
+                        this.$toast({
+                            message: '添加成功',
+                            duration: 800
+                        })
+                        // toast('添加成功'); // 使用这个方法请放开引入toast方法
+                    } else {
+                        this.$toast({
+                            message: '添加失败',
+                            duration: 800
+                        })
+                    }
+                } else {
+                    this.$router.push('/login')
+                }
             }
         }
     }

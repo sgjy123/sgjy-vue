@@ -54,7 +54,7 @@
             }
         },
         computed: {
-            ...mapState(['shopCart']),
+            ...mapState(['shopCart','userInfo']),
             goodsNum() {
                 if (this.shopCart) {
                     // 1. 定义商品数量
@@ -74,7 +74,8 @@
         mounted() {
             // 自动登录
             this.reqUserInfo();
-
+            // 获取购物车数据
+            this.initShopCart();
         },
         methods: {
             ...mapActions(['reqUserInfo']),
