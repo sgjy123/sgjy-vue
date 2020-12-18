@@ -44,8 +44,8 @@
                                    clearable
                                    placeholder="验证码">
                             <template #button>
-                                <van-image ref="userImgCode" src="http://demo.itlike.com/web/xlmc/api/captcha"
-                                           @click="getImgCode"/>
+                                <van-image ref="userImgCode" :src="userImgCode"
+                                           @click.prevent="getImgCode"/>
                             </template>
                         </van-field>
                     </van-tab>
@@ -89,7 +89,8 @@
                     value: '0', // 0：关闭; 1: 张开
                     icon: 'closed-eye',
                     type: 'password'
-                }
+                },
+                userImgCode: 'http://demo.itlike.com/web/xlmc/api/captcha'
             }
         },
         components: {},
@@ -272,7 +273,7 @@
                     // 1. 定义参数
                     let prams = {
                         user_name: this.user_name,
-                        user_pwd: this.user_pwd,
+                        user_pwd: this.user_pass,
                         captcha: this.user_code
                     }
                     // 2. 请求接口
@@ -320,10 +321,12 @@
              * @date: 2020-12-16
              */
             getImgCode() {
-                // 1.获取图片demo
+                let newsImgCode = 'http://demo.itlike.com/web/xlmc/api/captcha?time=' + new Date()
+                this.userImgCode = newsImgCode
+                /*// 1.获取图片demo
                 let imgHtml = this.$refs.userImgCode;
                 // 2.设置图片src属性
-                this.$set(imgHtml, 'src', 'http://demo.itlike.com/web/xlmc/api/captcha?time=' + new Date())
+                this.$set(imgHtml, 'src', 'http://demo.itlike.com/web/xlmc/api/captcha?time=' + new Date())*/
             }
         }
     }
